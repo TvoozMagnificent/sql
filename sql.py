@@ -116,6 +116,19 @@ select_all = '*'
 no_constraint = '1'
 no_limit = '-1'
 display_raised_error = '!ERROR default'
+RETURN = '\n'
 
+
+# format func
+def format(list_):
+    pre='\n'.join(['||  '+''.join(z) for z in [[f"{(f'{y},').ljust(13)}|| "
+                                         f" " for y in str(tuple(x))[1:-1].split(', ')] for x in list_]])
+    return f"{(len(pre.split(RETURN)[0])-2) * '='}\n{pre}\n{(len(pre.split(RETURN)[0])-2) * '='}"
+
+
+def print_data(connection,
+               table_name):
+    return format(get_list(connection,
+                           table_name))
 
 
