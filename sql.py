@@ -21,7 +21,9 @@ def insert_data(connection,
                 table_name,
                 values_list,
                 error_display='!ERROR default',
-                show_errors=True):
+                show_errors=True,
+                edit_if_error=False,
+                suppress_warning_empty_error_display=True):
     try:
         connection.execute(f"INSERT INTO COMPANY \
         VALUES {tuple(values_list)}")
@@ -30,6 +32,15 @@ def insert_data(connection,
     except Exception as e:
         print(show_errors*(str(e) if error_display=='!ERROR default' else error_display))
         # True*"a string" = "a string", False*"anything" = ""
+        if edit_if_error:
+            connection.execute(f"REPLACE INTO COMPANY \
+            VALUES {tuple(values_list)}")
+            # In[8]: f'{(1, 2)}'
+            # Out[8]: '(1, 2)
+            if not error_display and not suppress_warning_empty_error_display:
+                print('WARNING: You have used insert_data() for replacing a row. '
+                      'This is inefficient and you should use the change_data() function. '
+                      'To suppress this warning, use suppress_warning_empty_error_display=True')
 
 
 def insert_datas(connection,
