@@ -8,3 +8,11 @@ from sqlite_help_functions import *
 ```
 **This line does everything. No more f\*cking syntax.**
 
+(To install run python code: 
+`import os`
+`os.system('pip install sqlite_help_functions')`
+)
+
+(pip3 for mac and linux)
+
+or run in terminal `pip install sqlite_help_functions` (pip3 for mac and linux)
